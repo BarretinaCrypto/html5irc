@@ -1,0 +1,62 @@
+.ui-top{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: white;
+}
+
+
+.channels{
+    margin: 10px 10px 0 10px;
+}
+
+.connect-other{
+    margin-left: 10px;
+}
+
+.ui-bottom{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: white;
+}
+
+.sendbox{
+    margin: 0 10px;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #ccc;
+}
+
+.msg-log{
+    min-height: 100%;
+    margin: 47px 10px 50px 10px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    background-color: #f5eedb;
+    font-family: monospace;
+}
+
+.server-msg{
+    color: #ccc;
+}
+
+#inp{
+    width: 400px;
+}
+
+.btn.send{
+    margin-top: -10px;
+}
+
+.irc-msg {
+    white-space: pre-wrap;
+}
+
+.irc-from {
+    width: 120px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    text-align: right;
+    margin-right: 10px;
+    padding-right: 10px;
+}
