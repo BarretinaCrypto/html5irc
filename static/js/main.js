@@ -5,7 +5,7 @@ var $input = $("#inp").keypress(function(e){
         $input.val("");
     }
 });
-var socket = new WebSocket("ws://localhost:4242/", "node-irc");
+var socket = new WebSocket("ws://" + location.host + ":4242/", "node-irc");
 
 function formatFrom(from, to) {
     if(to == "#mozilla-hispano" || from == "[Serv]"){
