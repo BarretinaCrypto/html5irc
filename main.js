@@ -6,6 +6,8 @@ var http = require('http');
 var fs = require('fs');
 var WebSocketServer = require('websocket').server;
 
+var baseNick = "Bengoa";
+
 
 var msgLog = [];
 var clients = [];
@@ -26,16 +28,17 @@ function addLogMessage(from, to, message){
 
 
 function log(s){
-    console.log(s);
     addLogMessage("[Serv]","Me",s);
 }
 
-var client = new irc.Client('irc.mozilla.org', 'Bengoa', {
+var client = new irc.Client('irc.mozilla.org', baseNick, {
     channels: ['#mozilla-hispano'],
     showErrors: true,
     debug: true
     //secure: true,
 });
+
+
 
 client.addListener('registered',function(){
     log("Irc Connected");
@@ -110,6 +113,15 @@ function originIsAllowed(origin) {
   return true;
 }
 
+function updateNick() {
+    var nick = baseNick;
+    if(clients.length === 0){
+        nick += "|afk";
+    }
+    client.send("NICK", nick);
+    log("changed nick to " + nick);
+}
+
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
       request.reject();
@@ -120,6 +132,8 @@ wsServer.on('request', function(request) {
     var connection = request.accept('node-irc', request.origin);
     log("Websocket connection accepted");
     clients.push(connection);
+
+    updateNick();
 
     connection.sendUTF(JSON.stringify(msgLog));
 
@@ -138,6 +152,7 @@ wsServer.on('request', function(request) {
         for (var i=0; i<clients.length; i++){
             if(clients[i] == connection){
                 clients.splice(i);
+                updateNick();
                 return;
             }
         }
